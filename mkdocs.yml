@@ -1,0 +1,21 @@
+site_name: TheRoundersKnowledge
+site_description: Documentation for TheRoundersKnowledge project
+site_author: Yevhen Zelikson
+site_url: https://yevhenZ-rounds.github.io/TheRoundersKnowledge/
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - toc.integrate
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Contribute: contribute.md
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
