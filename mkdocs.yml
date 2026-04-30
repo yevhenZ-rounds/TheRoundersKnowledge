@@ -13,6 +13,11 @@ theme:
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
+  - Guides:
+    - Markdown Syntax: guides/markdown-syntax.md
+    - Adding Files & Media: guides/adding-files.md
+  - Examples:
+    - Media & Assets: examples/media-and-assets.md
   - Contribute: contribute.md
 
 markdown_extensions:
