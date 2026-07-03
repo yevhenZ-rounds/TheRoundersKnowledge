@@ -4,10 +4,6 @@ site_description = "Documentation for TheRoundersKnowledge project"
 site_author = "Yevhen Zelikson"
 site_url = "https://yevhenZ-rounds.github.io/TheRoundersKnowledge/"
 
-extra_css = [
-  "stylesheets/macros-utils/link-card.css",
-]
-
 nav = [
   { "Getting Started" = "getting-started.md" },
     { "Guides" = [
@@ -37,6 +33,3 @@ emoji_generator = "zensical.extensions.emoji.to_svg"
 [project.markdown_extensions.pymdownx.highlight]
 [project.markdown_extensions.pymdownx.inlinehilite]
 [project.markdown_extensions.pymdownx.superfences]
-
-[project.plugins.macros]
-modules = ["zensical_macros_utils"]
