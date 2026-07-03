@@ -73,7 +73,7 @@ docs/
 4. **Drag and drop** your files or click to select them
 5. **Write a commit message** (e.g., "Add: product screenshot")
 6. **Click "Commit changes"**
-7. **Go to Actions tab** and click "Run workflow" on "Deploy MkDocs"
+7. **Push to `main`** — the site rebuilds automatically via GitHub Actions
 8. Your changes will be live in a few minutes!
 
 ## Tips for File Management

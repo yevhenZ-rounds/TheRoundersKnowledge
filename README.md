@@ -4,7 +4,7 @@
 
 ## About
 
-TheRoundersKnowledge is a repository for knowledge, documentation, and resources. This site is built with [MkDocs](https://www.mkdocs.org/) and hosted on GitHub Pages.
+TheRoundersKnowledge is a repository for knowledge, documentation, and resources. This site is built with [Zensical](https://zensical.org/) and hosted on GitHub Pages.
 
 ## Quick Links
 
