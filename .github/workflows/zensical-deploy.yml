@@ -1,4 +1,4 @@
-name: Deploy MkDocs
+name: Deploy Zensical Site
 
 on:
   workflow_dispatch:

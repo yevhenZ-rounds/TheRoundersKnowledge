@@ -120,9 +120,12 @@ Styled as a button:
 
 ## How publishing works
 
-- Pushing to `main` (or merging a PR into it) is the trigger — no manual step needed for content changes.
+- Merging to `main` does **not** auto-publish — the deploy workflow only runs
+  when triggered manually.
 - `uv run zensical build` renders `docs/` into a static `site/` folder.
-- GitHub Actions (`.github/workflows/mkdocs-deploy.yml`) builds and publishes `site/` to GitHub Pages.
+- GitHub Actions (`.github/workflows/zensical-deploy.yml`, "Deploy Zensical
+  Site") builds and publishes `site/` to GitHub Pages. Trigger it from the
+  Actions tab, or `gh workflow run "Deploy Zensical Site"`.
 - `site/` itself is git-ignored — never edit it directly, it's regenerated on every deploy.
 
 ## Style guide
