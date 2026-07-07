@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       <url>
-        <loc>https://yevhenZ-rounds.github.io/TheRoundersKnowledge/getting-started/</loc>
+        <loc>https://yevhenZ-rounds.github.io/TheRoundersKnowledge/</loc>
       </url>
       <url>
-        <loc>https://yevhenZ-rounds.github.io/TheRoundersKnowledge/guides/markdown-syntax/</loc>
+        <loc>https://yevhenZ-rounds.github.io/TheRoundersKnowledge/documentation/getting-started/</loc>
       </url>
       <url>
-        <loc>https://yevhenZ-rounds.github.io/TheRoundersKnowledge/guides/adding-files/</loc>
+        <loc>https://yevhenZ-rounds.github.io/TheRoundersKnowledge/documentation/editing-guide/</loc>
       </url>
       <url>
-        <loc>https://yevhenZ-rounds.github.io/TheRoundersKnowledge/examples/media-and-assets/</loc>
+        <loc>https://yevhenZ-rounds.github.io/TheRoundersKnowledge/resources/</loc>
       </url>
       <url>
-        <loc>https://yevhenZ-rounds.github.io/TheRoundersKnowledge/contribute/</loc>
+        <loc>https://yevhenZ-rounds.github.io/TheRoundersKnowledge/resources/template-resource/</loc>
+      </url>
+      <url>
+        <loc>https://yevhenZ-rounds.github.io/TheRoundersKnowledge/showcase/feature-showcase/</loc>
       </url>
 </urlset>
