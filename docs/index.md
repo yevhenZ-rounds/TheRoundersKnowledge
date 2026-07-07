@@ -1,16 +1,19 @@
 # Welcome to TheRoundersKnowledge
 
-This is the documentation site for **TheRoundersKnowledge**.
+This site is organized into three sections:
 
-## Quick Links
+- **[Documentation](documentation/getting-started.md)** — plain Markdown guides:
+  getting started, how to edit this site, and Markdown syntax reference.
+- **[Resources](resources/index.md)** — downloadable files (skills, templates,
+  cheat sheets) each with a description and a direct download link.
+- **[Showcase](showcase/feature-showcase.md)** — every Markdown/Zensical
+  feature this site supports, shown as source + rendered result so you can
+  copy-paste straight into your own pages.
 
-- **[Getting Started](getting-started.md)** - Start here to learn the basics
-- **[Contribute](contribute.md)** - How to contribute to this project
-
-## About This Project
-
-TheRoundersKnowledge is a repository for knowledge, documentation, and resources.
+New here? Start with [Getting Started](documentation/getting-started.md), then
+[Editing Guide](documentation/editing-guide.md) once you're ready to change
+something.
 
 ---
 
-*Last updated: May 2026*
+*Last updated: July 2026*

@@ -64,7 +64,7 @@ git push origin main
 
 ## Links and References
 
-[Link to Getting Started](../getting-started.md)
+[Link to Getting Started](getting-started.md)
 
 [External Link](https://github.com)
 

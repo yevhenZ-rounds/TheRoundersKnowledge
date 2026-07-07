@@ -7,17 +7,20 @@ site_url = "https://yevhenZ-rounds.github.io/TheRoundersKnowledge/"
 extra_css = ["stylesheets/extra.css"]
 
 nav = [
-  { "Getting Started" = "getting-started.md" },
-    { "Guides" = [
-      { "Markdown Syntax" = "guides/markdown-syntax.md" },
-      { "Adding Files & Media" = "guides/adding-files.md" },
-    ]},
-    { "Examples" = [
-      { "Media & Assets" = "examples/media-and-assets.md" },
-      { "Feature Showcase" = "examples/feature-showcase.md" },
-    ]},
-    { "Contribute" = "contribute.md" },
-  ]
+  { "Home" = "index.md" },
+  { "Documentation" = [
+    { "Getting Started" = "documentation/getting-started.md" },
+    { "Editing Guide" = "documentation/editing-guide.md" },
+    { "Markdown Syntax" = "documentation/markdown-syntax.md" },
+  ]},
+  { "Resources" = [
+    { "Overview" = "resources/index.md" },
+    { "Template Resource" = "resources/template-resource.md" },
+  ]},
+  { "Showcase" = [
+    { "Feature Showcase" = "showcase/feature-showcase.md" },
+  ]},
+]
 
 [project.theme]
 variant = "classic"

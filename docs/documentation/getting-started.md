@@ -31,7 +31,7 @@ The site will be available at `http://localhost:8000`
 
 ## Next Steps
 
-- Check out the [Contribute](contribute.md) guide to learn how to add content
-- Explore the documentation structure
-- Start adding your own pages!
+- Check out the [Editing Guide](editing-guide.md) to learn how to add or change content
+- Browse [Resources](../resources/index.md) for downloadable files
+- See the [Feature Showcase](../showcase/feature-showcase.md) for what this site can render
 
