@@ -1,0 +1,6 @@
+/* Demonstrates `extra_css` + `attr_list`: see docs/examples/feature-showcase.md */
+.example-callout {
+  padding: 0.6rem 1rem;
+  border-left: 0.25rem solid var(--md-accent-fg-color, #ff5252);
+  background: color-mix(in srgb, var(--md-accent-fg-color, #ff5252) 8%, transparent);
+}
