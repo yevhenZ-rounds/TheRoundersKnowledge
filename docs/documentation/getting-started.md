@@ -29,9 +29,18 @@ uv run zensical serve
 
 The site will be available at `http://localhost:8000`
 
+To stop it, go back to the terminal running `zensical serve` and press
+++ctrl+c++. If it's running in the background (no terminal attached), find and
+stop the process instead:
+
+```bash
+lsof -i :8000        # find the PID listening on the port
+kill <PID>
+```
+
 ## Next Steps
 
-- Check out the [Contribute](contribute.md) guide to learn how to add content
-- Explore the documentation structure
-- Start adding your own pages!
+- Check out the [Editing Guide](editing-guide.md) to learn how to add or change content
+- Browse [Resources](../resources/index.md) for downloadable files
+- See the [Feature Showcase](../showcase/feature-showcase.md) for what this site can render
 
