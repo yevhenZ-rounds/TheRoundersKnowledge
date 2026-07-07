@@ -11,7 +11,62 @@ that ship with Zensical, all enabled in this project's
 [`zensical.toml`](https://zensical.org/docs/setup/extensions/).
 
 Every example below shows **Source** (the raw Markdown, copy-pasteable as-is)
-directly above **Result** (what it renders to on this page).
+directly above **Result** (what it renders to on this page). This page is
+the single Markdown reference for the site — from plain headings up to the
+Zensical-specific extensions.
+
+## Basics
+
+> [Docs](https://python-markdown.github.io/basic-syntax/)
+
+Standard Markdown, no extensions required.
+
+**Source:**
+
+```markdown
+# Heading 1
+## Heading 2
+### Heading 3
+
+**Bold**, *italic*, ***bold and italic***, `inline code`.
+
+- Item 1
+- Item 2
+  - Nested item
+
+1. First item
+2. Second item
+   1. Nested item
+
+[Link to another page](../resources/index.md)
+![Alt text](../assets/images/example.png)
+
+> A blockquote.
+> It can span multiple lines.
+
+---
+```
+
+**Result:**
+
+#### Heading 3 (shown one level down to keep this page's own outline clean)
+
+**Bold**, *italic*, ***bold and italic***, `inline code`.
+
+- Item 1
+- Item 2
+  - Nested item
+
+1. First item
+2. Second item
+   1. Nested item
+
+[Link to another page](../resources/index.md)
+
+> A blockquote.
+> It can span multiple lines.
+
+---
 
 ## Admonitions
 

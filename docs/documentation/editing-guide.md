@@ -44,10 +44,10 @@ files, preview your change, and ship it.
 
 ## Editing an existing page
 
-Every page is a Markdown file under `docs/`. Find it, edit it, save it — that's
-it. See the [Markdown Syntax](markdown-syntax.md) page for formatting
-reference and the [Showcase](../showcase/feature-showcase.md) for everything
-this site can render.
+Every page is a Markdown file under `docs/`. Find it, edit it, save it —
+that's it. See the [Showcase](../showcase/feature-showcase.md) for a full
+reference, from basic Markdown up to everything this site's Zensical setup
+can render.
 
 ## Adding a new page
 
@@ -62,7 +62,6 @@ this site can render.
      { "Documentation" = [
        { "Getting Started" = "documentation/getting-started.md" },
        { "Editing Guide" = "documentation/editing-guide.md" },
-       { "Markdown Syntax" = "documentation/markdown-syntax.md" },
        { "Your New Page" = "documentation/your-page.md" },
      ]},
    ]

@@ -16,7 +16,7 @@ The site has three sections:
 
 - 📚 [Full Documentation](https://yevhenZ-rounds.github.io/TheRoundersKnowledge/)
 - 🚀 [Getting Started](https://yevhenZ-rounds.github.io/TheRoundersKnowledge/documentation/getting-started/)
-- 📝 [Markdown Guide](https://yevhenZ-rounds.github.io/TheRoundersKnowledge/documentation/markdown-syntax/)
+- 📝 [Markdown Guide](https://yevhenZ-rounds.github.io/TheRoundersKnowledge/showcase/feature-showcase/#basics)
 - 📦 [Resources](https://yevhenZ-rounds.github.io/TheRoundersKnowledge/resources/)
 - ✨ [Feature Showcase](https://yevhenZ-rounds.github.io/TheRoundersKnowledge/showcase/feature-showcase/)
 
