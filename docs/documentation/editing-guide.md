@@ -30,6 +30,9 @@ files, preview your change, and ship it.
     ```
 
     Open `http://localhost:8000`. The preview live-reloads as you save files.
+    When you're done, stop it with ++ctrl+c++ in that terminal (or
+    `lsof -i :8000` + `kill <PID>` if it's running detached — see
+    [Getting Started](getting-started.md)).
 
     ```bash
     git checkout -b your-branch-name
