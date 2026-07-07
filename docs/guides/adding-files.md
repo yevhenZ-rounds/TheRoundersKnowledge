@@ -92,7 +92,7 @@ docs/
 4. Drag and drop your files or click to select
 5. Add a commit message
 6. Commit to main branch
-7. Run the **Deploy MkDocs** action to rebuild your site
+7. **Push to `main`** — the site rebuilds automatically via GitHub Actions
 
 ## Example: Adding an Image
 

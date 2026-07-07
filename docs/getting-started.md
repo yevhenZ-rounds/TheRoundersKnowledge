@@ -5,7 +5,7 @@ Welcome! This guide will help you get up and running.
 ## Prerequisites
 
 Before you begin, make sure you have:
-- Python 3.7+ installed
+- [uv](https://docs.astral.sh/uv/getting-started/installation/) installed
 - Git
 - A text editor
 
@@ -17,14 +17,14 @@ git clone https://github.com/yevhenZ-rounds/TheRoundersKnowledge.git
 cd TheRoundersKnowledge
 ```
 
-2. Install MkDocs and dependencies:
+2. Install dependencies:
 ```bash
-pip install mkdocs mkdocs-material
+uv sync
 ```
 
-3. Build the documentation locally:
+3. Preview the documentation locally:
 ```bash
-mkdocs serve
+uv run zensical serve
 ```
 
 The site will be available at `http://localhost:8000`

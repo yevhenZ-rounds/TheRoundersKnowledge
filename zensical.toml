@@ -1,0 +1,35 @@
+[project]
+site_name = "TheRoundersKnowledge"
+site_description = "Documentation for TheRoundersKnowledge project"
+site_author = "Yevhen Zelikson"
+site_url = "https://yevhenZ-rounds.github.io/TheRoundersKnowledge/"
+
+nav = [
+  { "Getting Started" = "getting-started.md" },
+    { "Guides" = [
+      { "Markdown Syntax" = "guides/markdown-syntax.md" },
+      { "Adding Files & Media" = "guides/adding-files.md" },
+    ]},
+    { "Examples" = [
+      { "Media & Assets" = "examples/media-and-assets.md" },
+    ]},
+    { "Contribute" = "contribute.md" },
+  ]
+
+[project.theme]
+variant = "classic"
+features = [
+  "navigation.instant",
+  "navigation.tracking",
+  "toc.integrate",
+]
+
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_index = "zensical.extensions.emoji.twemoji"
+emoji_generator = "zensical.extensions.emoji.to_svg"
+[project.markdown_extensions.pymdownx.highlight]
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.superfences]

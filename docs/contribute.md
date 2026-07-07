@@ -11,17 +11,20 @@ git checkout -b feature/your-feature-name
 
 2. **Add or edit documentation** in the `docs/` folder using Markdown
 
-3. **Update mkdocs.yml** if you're adding a new page:
-```yaml
-nav:
-  - Home: index.md
-  - Getting Started: getting-started.md
-  - Your New Page: your-page.md
+3. **Update zensical.toml** if you're adding a new page:
+```toml
+nav = [
+  { "Knowledge" = "knowledge/index.md" },
+  { "Getting Started" = [
+    "getting-started.md",
+    { "Your New Page" = "your-page.md" },
+  ]},
+]
 ```
 
 4. **Test locally**:
 ```bash
-mkdocs serve
+uv run zensical serve
 ```
 
 5. **Commit and push** your changes:
@@ -37,7 +40,7 @@ git push origin feature/your-feature-name
 
 To build the static site for deployment:
 ```bash
-mkdocs build
+uv run zensical build
 ```
 
 This generates the `site/` folder with all HTML files ready for hosting.

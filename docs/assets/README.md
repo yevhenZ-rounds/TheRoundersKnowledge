@@ -16,7 +16,7 @@ assets/
 1. Create folders as needed (images/, downloads/, etc.)
 2. Upload files via GitHub web interface
 3. Reference them in your markdown files using relative paths
-4. Commit and trigger the "Deploy MkDocs" action
+4. Commit and push — the site rebuilds automatically on push to `main`
 
 ## Example Usage
 
