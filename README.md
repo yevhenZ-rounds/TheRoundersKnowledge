@@ -6,20 +6,20 @@
 
 TheRoundersKnowledge is a repository for knowledge, documentation, and downloadable resources. This site is built with [Zensical](https://zensical.org/) and hosted on GitHub Pages.
 
-The site has three sections:
+The site is organized into:
 
-- **Documentation** — plain Markdown guides
-- **Resources** — downloadable files, each with a description and download link
-- **Showcase** — every Markdown/Zensical feature this site supports, as copy-pasteable examples
+- **Knowledge** — browse topics and agent skills
+- **Skills** — reusable agent skills with source links
+- **Contributing** — guides for adding and editing documentation
 
 ## Quick Links
 
 - 📚 [Full Documentation](https://yevhenZ-rounds.github.io/TheRoundersKnowledge/)
-- 🚀 [Getting Started](https://yevhenZ-rounds.github.io/TheRoundersKnowledge/documentation/getting-started/)
-- 📝 [Markdown Guide](https://yevhenZ-rounds.github.io/TheRoundersKnowledge/showcase/feature-showcase/#basics)
-- 📦 [Resources](https://yevhenZ-rounds.github.io/TheRoundersKnowledge/resources/)
-- ✨ [Feature Showcase](https://yevhenZ-rounds.github.io/TheRoundersKnowledge/showcase/feature-showcase/)
+- 🚀 [Getting Started](https://yevhenZ-rounds.github.io/TheRoundersKnowledge/getting-started/)
+- 📝 [Markdown Guide](https://yevhenZ-rounds.github.io/TheRoundersKnowledge/guides/markdown-syntax/)
+- 🤖 [Agent Skills](https://yevhenZ-rounds.github.io/TheRoundersKnowledge/skills/)
+- 🤝 [How to Contribute](https://yevhenZ-rounds.github.io/TheRoundersKnowledge/contribute/)
 
 ## Editing Content
 
-You can edit documentation directly on GitHub! See the [Editing Guide](https://yevhenZ-rounds.github.io/TheRoundersKnowledge/documentation/editing-guide/) for instructions.
+You can edit documentation directly on GitHub! See [Adding Files & Media](https://yevhenZ-rounds.github.io/TheRoundersKnowledge/guides/adding-files/) for instructions.
