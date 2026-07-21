@@ -12,9 +12,6 @@ ZipoApps Cloud Function that injects the real key server-side. The app can still
 fall back to a direct (un-proxied) call with a locally-configured key when one is
 available (e.g. delivered via PremiumHelper remote config).
 
-**Reference implementation:** `C:\Users\ascri\AndroidStudioProjects\coordinator`
-(`ProxyUtil.java`, `MyApplication.java`, `GoogleMapsApiClient.java`). When in doubt,
-open those files and mirror them — they are the source of truth for this skill.
 
 ## How it works
 
