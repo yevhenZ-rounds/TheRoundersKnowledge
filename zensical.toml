@@ -13,6 +13,7 @@ nav = [
     { "Assets Fetcher" = "skills/skill-assetsfetcher.md" },
     { "Edge to Edge" = "skills/skill-edgetoedge.md" },
     { "Proxy SDK" = "skills/skill-proxy.md" },
+    { "Target SDK 35 → 36" = "skills/skill-target-sdk-35-36.md" },
   ]},
   { "Contributing" = [
     "getting-started.md",
