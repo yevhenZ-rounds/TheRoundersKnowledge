@@ -31,4 +31,13 @@ Reusable agent skills for common development tasks.
 
     [:octicons-arrow-right-24: View skill](skill-proxy.md)
 
+-   :material-android:{ .lg .middle } __Target SDK 35 → 36 Migration__
+
+    ---
+
+    Migrate an Android app to targetSdk 36 (Android 16), covering all mandatory
+    breaking changes: predictive back, edge-to-edge, large screens, 16 KB pages, and more.
+
+    [:octicons-arrow-right-24: View skill](skill-target-sdk-35-36.md)
+
 </div>
