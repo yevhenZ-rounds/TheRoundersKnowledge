@@ -22,6 +22,15 @@ Reusable agent skills for common development tasks.
 
     [:octicons-arrow-right-24: View skill](skill-edgetoedge.md)
 
+-   :material-button-cursor:{ .lg .middle } __PH CTA Button__
+
+    ---
+
+    Replace `cta_button_shape` drawables with a proper `ph_cta_color` shape and
+    consistent corner radii for light and dark themes.
+
+    [:octicons-arrow-right-24: View skill](skill-ph-cta-button.md)
+
 -   :material-shield-key:{ .lg .middle } __Proxy SDK__
 
     ---

@@ -17,6 +17,16 @@ Browse documentation and resources by topic.
 
 </div>
 
-## Future sections
+## Tools
 
-<!-- Add more section grids here (e.g. DevOps, Data) as the knowledge base grows. -->
+<div class="grid cards" markdown>
+
+-   :material-wrench:{ .lg .middle } __Tools__
+
+    ---
+
+    Scripts and utilities for day-to-day work — capture helpers and more.
+
+    [:octicons-arrow-right-24: Browse tools](../tools/index.md)
+
+</div>
