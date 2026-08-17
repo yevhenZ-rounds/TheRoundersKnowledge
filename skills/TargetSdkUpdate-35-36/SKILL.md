@@ -258,35 +258,35 @@ implementation 'androidx.activity:activity:1.13.0'  // base artifact, no ktx nee
 
 ### Starting assumption when migrating from SDK 35
 
-**Since SDK 35 already enforced edge-to-edge, it should already be properly implemented.** The expected state is:
+Since SDK 35 already enforced edge-to-edge, it should already be properly implemented. The expected state is:
 - No `windowOptOutEdgeToEdgeEnforcement` opt-out present, AND
-- Inset handling is already in place (via `fitsSystemWindows`, `setOnApplyWindowInsetsListener`, or `enableEdgeToEdge`)
+- Inset handling already in place
 
-If that's the case — **nothing to do for A2**. Skip to A3.
+If that is the case — **nothing to do for A2**. Skip to A3.
 
-### Detection — check which case you're in
+### Detection — check which case you are in
+
 ```bash
 # Is the opt-out still present? (means edge-to-edge was never properly implemented)
 grep -r "windowOptOutEdgeToEdgeEnforcement" app/src/main/AndroidManifest.xml
 grep -r "windowOptOutEdgeToEdgeEnforcement" app/src/main/res/
 
 # Is inset handling already in place?
-grep -r "enableEdgeToEdge\|setDecorFitsSystemWindows\|setOnApplyWindowInsetsListener\|fitsSystemWindows" app/src/
+grep -r "enableEdgeToEdge\|setOnApplyWindowInsetsListener\|handleInsets" app/src/
 ```
 
 **Result A — opt-out NOT present, inset handling found** → Already compliant. Nothing to do.
 
-**Result B — opt-out IS present** → ⚠️ The app was using a workaround that no longer exists on SDK 36. Removing the opt-out (required) will expose that edge-to-edge was never properly handled. Apply the fixes below.
+**Result B — opt-out IS present** → ⚠️ The app was using a workaround that no longer exists on SDK 36. Apply all fix steps below.
 
-> **Warning**: If `windowOptOutEdgeToEdgeEnforcement="true"` is present, removing it will likely cause UI issues (content hidden behind status/nav bars). Do not remove it without also implementing inset handling.
+> **Warning**: Never remove `windowOptOutEdgeToEdgeEnforcement` without implementing inset handling at the same time — removing it alone will cause content to be hidden behind system bars.
 
-### Fix Step 1 — Remove the opt-out (only needed for Result B)
+### Fix Step 1 — Remove the opt-out
+
 From `AndroidManifest.xml`:
 ```xml
-<!-- REMOVE — no-op on SDK 36, misleading to leave it -->
-<application
-    android:windowOptOutEdgeToEdgeEnforcement="true"  <!-- DELETE THIS LINE -->
-    ...>
+<!-- REMOVE — no-op on SDK 36 -->
+android:windowOptOutEdgeToEdgeEnforcement="true"
 ```
 
 From `res/values/themes.xml` (if present):
@@ -295,111 +295,137 @@ From `res/values/themes.xml` (if present):
 <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
 ```
 
-### Fix Step 2 — Opt in explicitly (only needed for Result B)
+### Fix Step 2 — Add the `handleInsets` helper
 
-**Option A — `enableEdgeToEdge()` (preferred, requires `activity:1.8.0+`)**
-Does three things at once: extends content behind bars, makes bars transparent, adjusts icon colors for light/dark theme.
+Add the following helper in a proper utils file (create one if necessary). This is the only prescribed approach — do not use `fitsSystemWindows` in the theme (causes padding corruption on API 26–29) and do not use `WindowCompat.setDecorFitsSystemWindows(window, false)` (same root cause).
+
+**Kotlin:**
+
 ```kotlin
-class BaseActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        enableEdgeToEdge()  // call BEFORE super.onCreate()
-        super.onCreate(savedInstanceState)
+import android.app.Activity
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
+
+fun Activity.handleInsets(topView: View? = null, bottomView: View? = null) {
+    val content = this@handleInsets.findViewById<ViewGroup>(android.R.id.content)
+    val rootView = content?.getChildAt(0) ?: return
+
+    val viewForTopPadding = topView ?: rootView
+    val viewForBottomPadding = bottomView ?: rootView
+
+    ViewCompat.setOnApplyWindowInsetsListener(rootView) { _, insets ->
+        val bars = insets.getInsets(WindowInsetsCompat.Type.displayCutout() or WindowInsetsCompat.Type.systemBars())
+        viewForTopPadding.updatePadding(top = bars.top)
+        viewForBottomPadding.updatePadding(bottom = bars.bottom)
+        WindowInsetsCompat.CONSUMED
     }
 }
 ```
 
-**Option B — `WindowCompat.setDecorFitsSystemWindows` (lower-level, conservative)**
-Only extends content behind bars. Does NOT make bars transparent or adjust icon colors — safer if your theme already defines `statusBarColor`/`navigationBarColor`.
+**Java:**
+
+```java
+import android.app.Activity;
+import android.view.View;
+import android.view.ViewGroup;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public static void handleInsets(Activity activity, View topView, View bottomView) {
+    ViewGroup content = activity.findViewById(android.R.id.content);
+    if (content == null) return;
+
+    View rootView = content.getChildAt(0);
+    if (rootView == null) return;
+
+    View viewForTopPadding = topView != null ? topView : rootView;
+    View viewForBottomPadding = bottomView != null ? bottomView : rootView;
+
+    ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, insets) -> {
+        Insets bars = insets.getInsets(
+                WindowInsetsCompat.Type.displayCutout() | WindowInsetsCompat.Type.systemBars()
+        );
+        viewForTopPadding.setPadding(
+                viewForTopPadding.getPaddingLeft(),
+                bars.top,
+                viewForTopPadding.getPaddingRight(),
+                viewForTopPadding.getPaddingBottom()
+        );
+        viewForBottomPadding.setPadding(
+                viewForBottomPadding.getPaddingLeft(),
+                viewForBottomPadding.getPaddingTop(),
+                viewForBottomPadding.getPaddingRight(),
+                bars.bottom
+        );
+        return WindowInsetsCompat.CONSUMED;
+    });
+}
+```
+
+Why this is safe across all API levels:
+- Sets the listener on the **root view** and returns `CONSUMED` — child views never receive the inset dispatch, so their XML `paddingStart`/`paddingEnd` values are never overwritten
+- Uses `updatePadding` (Kotlin) / side-preserving `setPadding` (Java) — only top and bottom are touched
+- Covers `displayCutout()` in addition to `systemBars()` — notch-safe
+
+### Fix Step 3 — Enable edge-to-edge and call the helper in every activity
+
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle?) {
-    WindowCompat.setDecorFitsSystemWindows(window, false)
+    enableEdgeToEdge()          // BEFORE super.onCreate(); handles bar transparency + icon contrast
     super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_main)
+    // Action bar setup (if applicable)
+    handleInsets()              // AFTER action bar setup
+    // rest of initialization
 }
 ```
 
-### Fix Step 3 — Handle insets so content is not hidden (only needed for Result B)
-
-**Option A — `fitsSystemWindows="true"` in theme (quickest, least control)**
-Applies padding to the root view of every activity automatically. Works for most simple layouts:
-```xml
-<!-- res/values/themes.xml -->
-<style name="Theme.MyApp" parent="...">
-    <item name="android:fitsSystemWindows">true</item>
-</style>
+```java
+public void onCreate(Bundle bundle) {
+    EdgeToEdge.enable(this);    // BEFORE super.onCreate()
+    super.onCreate(bundle);
+    setContentView(R.layout.activity_main);
+    // Action bar setup (if applicable)
+    Utils.handleInsets(this, null, null);   // AFTER action bar setup
+    // rest of initialization
+}
 ```
 
-**Option B — Per-view inset listener (recommended for full control)**
-Apply insets only to specific views (e.g., top toolbar and bottom nav bar) so content behind is intentional:
+If the activity has a **bottom navigation bar or a RecyclerView that reaches the screen bottom**, pass it as `bottomView` so the bottom inset lands on that view instead of the root:
+
 ```kotlin
-// Apply top inset to toolbar only
-ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar) { view, insets ->
-    val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-    view.updatePadding(top = bars.top)
-    insets
-}
-
-// Apply bottom inset to bottom navigation only
-ViewCompat.setOnApplyWindowInsetsListener(binding.bottomNav) { view, insets ->
-    val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-    view.updatePadding(bottom = bars.bottom)
-    insets
-}
-
-// Also handle IME (keyboard) inset for scroll containers:
-ViewCompat.setOnApplyWindowInsetsListener(binding.scrollView) { view, insets ->
-    val ime = insets.getInsets(WindowInsetsCompat.Type.ime())
-    val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-    view.updatePadding(bottom = maxOf(ime.bottom, bars.bottom))
-    insets
-}
-```
-
-**Option C — `WindowInsetsAnimationCompat` for smooth keyboard animation**
-When the keyboard shows/hides, animate the layout instead of snapping:
-```kotlin
-ViewCompat.setWindowInsetsAnimationCallback(
-    binding.root,
-    object : WindowInsetsAnimationCompat.Callback(DISPATCH_MODE_STOP) {
-        override fun onProgress(
-            insets: WindowInsetsCompat,
-            runningAnimations: List<WindowInsetsAnimationCompat>
-        ): WindowInsetsCompat {
-            val imeInset = insets.getInsets(WindowInsetsCompat.Type.ime())
-            binding.root.translationY = -imeInset.bottom.toFloat()
-            return insets
-        }
-    }
-)
-```
-
-### Common issue: RecyclerList items cut off at bottom
-If your list extends to the bottom of the screen and items get hidden behind the navigation bar:
-```kotlin
-// Add clipToPadding="false" in XML so items can scroll under the bar
-// but the last item still scrolls up above it:
+handleInsets(bottomView = binding.bottomNavigationView)
+// or for RecyclerView — also set clipToPadding=false so the last item scrolls fully into view:
 binding.recyclerView.clipToPadding = false
-ViewCompat.setOnApplyWindowInsetsListener(binding.recyclerView) { view, insets ->
-    val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-    view.updatePadding(bottom = bars.bottom)
-    insets
-}
+handleInsets(bottomView = binding.recyclerView)
 ```
 
-### Dependency — check before adding anything
-`WindowCompat`, `ViewCompat`, and `WindowInsetsCompat` have been in `androidx.core:core` since **1.5.0**. Your app almost certainly already has them transitively via `appcompat`. **Check your resolved version first:**
-```bash
-./gradlew app:dependencies --configuration releaseRuntimeClasspath | grep "androidx.core"
-```
-- **Resolved version ≥ 1.5.0** → `WindowCompat.setDecorFitsSystemWindows()`, `ViewCompat.setOnApplyWindowInsetsListener()`, `WindowInsetsCompat.Type.systemBars()` all work. No dependency change needed for basic edge-to-edge.
-- **Resolved version ≥ 1.8.0** → `WindowInsetsAnimationCompat` (smooth keyboard animation) also works.
+### Fix Step 4 — Fix toolbar height
 
-Only add an explicit declaration if you need an API genuinely absent from your resolved version. Prefer the base artifact — `core-ktx` at 1.19.0 is an empty wrapper that just re-exports `core` anyway:
-```groovy
-// Only if your resolved core version is genuinely too old for the API you need:
-implementation 'androidx.core:core:1.19.0'  // base artifact, identical to core-ktx at 1.19.0
+All toolbars must use `android:layout_height="wrap_content"`. The `?attr/actionBarSize` value does not account for insets and clips content:
+
+```xml
+<!-- WRONG -->
+<androidx.appcompat.widget.Toolbar
+    android:layout_height="?attr/actionBarSize" />
+
+<!-- CORRECT -->
+<androidx.appcompat.widget.Toolbar
+    android:layout_height="wrap_content" />
 ```
 
----
+### What NOT to do
+
+| Approach | Why to avoid |
+|---|---|
+| `<item name="android:fitsSystemWindows">true</item>` in theme | On API 26–29 the system calls `setPadding()` on child views during inset dispatch, wiping any `paddingStart`/`paddingEnd` set in XML |
+| `WindowCompat.setDecorFitsSystemWindows(window, false)` | Same root cause — leaves the legacy inset dispatch active on API 26–29 |
+| `enableEdgeToEdge()` without `handleInsets()` | Content draws behind system bars |
+| Removing the opt-out without any inset handling | Same result as above |
 
 ## A3 — Large Screen Adaptive Layouts [BREAKING on tablets and foldables]
 
@@ -704,7 +730,7 @@ android {
 ```
 
 ### Fix 3 — pre-built .so files from vendors that aren't 16 KB aligned
-First preference: request an updated `.so` from the vendor. If that's not possible, patch it yourself.
+Try to patch it yourself first. If patching fails or the file cannot be safely modified, log a warning and contact the vendor for a properly aligned `.so`.
 
 `patchelf` is **Linux-only** natively — it does not run on Windows or macOS without workarounds:
 
@@ -1060,3 +1086,4 @@ implementation 'androidx.core:core:1.19.0'           // NOT core-ktx (identical 
 ```
 
 > Versions above were latest stable as of mid-2026 — check [AndroidX releases](https://developer.android.com/jetpack/androidx/versions) before applying.
+
